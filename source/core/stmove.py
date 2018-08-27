@@ -95,11 +95,11 @@ class StMove(object):
         if self.shape.cut_cor == 40:
             self.append(RapidPos(start))
             
-        elif self.shape.cut_cor != 40 and not g.config.vars.Cutter_Compensation["done_by_machine"]:
+        elif self.shape.cut_cor != 40 and self.shape.type is not 'Hole' and not g.config.vars.Cutter_Compensation["done_by_machine"]:
 
             toolwidth = self.shape.parentLayer.getToolRadius()
             offtype = "in"  if self.shape.cut_cor == 42 else "out"
-            offshape = offShapeClass(parent = self.shape, offset = toolwidth, offtype = offtype)
+            offshape = offShapeClass(parent=self.shape, offset=toolwidth, offtype=offtype)
 
             if len(offshape.rawoff) > 0:
                 start, angle = offshape.rawoff[0].get_start_end_points(True, True)
